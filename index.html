@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CFB Dynasty: Franchise Engine</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
 
+  <header>
+    <div class="logo">GRIDIRON <span>DYNASTY 2.0</span></div>
+    <div id="user-team-display" class="team-badge">Select School</div>
+  </header>
+
+  <!-- Team Setup Modal -->
+  <div id="setup-modal" class="modal">
+    <div class="modal-card">
+      <h2>Take Over a Program</h2>
+      <p>Select from D1 FBS Programs to begin your coaching career:</p>
+      <select id="team-select"></select>
+      <button class="primary-btn" onclick="startDynasty()">Launch Dynasty</button>
+    </div>
+  </div>
+
+  <!-- Recruit Scout Modal -->
+  <div id="scout-modal" class="modal hidden">
+    <div class="modal-card scout-card">
+      <button class="close-btn" onclick="closeModal()">✕</button>
+      <div id="scout-card-body"></div>
+    </div>
+  </div>
+
+  <!-- Main Application -->
+  <div id="app" class="hidden">
+    
+    <!-- Top HUD -->
+    <section id="status-bar">
+      <div class="stat-box">
+        <span class="label">Season</span>
+        <span id="season-txt" class="val">2026</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Stage</span>
+        <span id="week-txt" class="val">Week 1</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Hours Pool</span>
+        <span id="hours-txt" class="val">0 / 0</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">NIL Treasury</span>
+        <span id="nil-txt" class="val" style="color:var(--accent-green)">$0</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Class Rank</span>
+        <span id="rank-txt" class="val">#--</span>
+      </div>
+      <button id="advance-btn" class="primary-btn pulse" onclick="advanceWeek()">Advance Week ➔</button>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(event, 'board')">🎯 Recruiting Board</button>
+      <button class="tab-btn" onclick="switchTab(event, 'roster')">📋 Team Roster & Dev</button>
+      <button class="tab-btn" onclick="switchTab(event, 'wire')">📜 Intelligence Wire</button>
+    </nav>
+
+    <!-- TAB 1: RECRUITING BOARD -->
+    <div id="tab-board" class="tab-content active-content">
+      <div class="grid-container">
+        <section class="card target-board">
+          <div class="card-header">
+            <h3>Prospect Targets</h3>
+            <span class="badge">Click prospect to Scout, Pitch, or Offer NIL</span>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Stars</th>
+                  <th>Name</th>
+                  <th>Pos</th>
+                  <th>Archetype</th>
+                  <th>Est OVR</th>
+                  <th>Dev Trait</th>
+                  <th>Dealbreaker</th>
+                  <th>Lock Progress</th>
+                </tr>
+              </thead>
+              <tbody id="targets-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <div class="card">
+            <h3>🏆 Class Commitments (<span id="commit-count-side">0</span>)</h3>
+            <ul id="commit-list" class="commit-list"></ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- TAB 2: ROSTER -->
+    <div id="tab-roster" class="tab-content hidden">
+      <section class="card">
+        <h3>Program Roster & Development Ceilings</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Name</th>
+                <th>Pos</th>
+                <th>Current OVR</th>
+                <th>Dev Trait</th>
+                <th>Primary Skill</th>
+              </tr>
+            </thead>
+            <tbody id="roster-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 3: WIRE LOGS -->
+    <div id="tab-wire" class="tab-content hidden">
+      <section class="card">
+        <h3>Dynasty Intelligence Feed</h3>
+        <div id="wire-log" class="wire-log full-wire"></div>
+      </section>
+    </div>
+
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
